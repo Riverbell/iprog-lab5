@@ -1,0 +1,34 @@
+
+			<div id ="dinnerOverviewView">
+				<div class="row">
+					<div class="col-md-12" id="myDinner">
+						<h3>My dinner: {{getNumberOfGuests()}} people <a href="#/search" class="btn btn-primary" type="submit" style="float: right;">Go back and edit dinner</a></h3>
+					</div>
+				</div>
+				<div class="col-md-12" align="center" id="menuOverview">
+					<div class="row">
+						<div ng-repeat="dish in menu" class="dish-container">
+							<div class="dish-image">
+								<img src="{{dish.ImageURL}}"/>
+							</div>
+							<div class="dish-name">
+								{{dish.Title}}
+							</div>
+							<div class="dish-price">
+								{{dishPrice(dish.RecipeID)}} SEK
+							</div>
+						</div>
+						<div class="dish-container verticalLine">
+							<div class="dish-price leftAlignPrice">
+								Total: <br/>
+								XX SEK
+							</div>
+						</div>
+						<div class="horizontalLine">
+						</div>
+						<div class="horizontalLinePlacing">
+							<a href="#/print" class="btn btn-primary">Print Full Recipe</a>
+						</div>
+					</div>
+				</div>
+			</div> <!-- end dinnerOverviewView -->

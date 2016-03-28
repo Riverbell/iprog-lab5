@@ -1,0 +1,28 @@
+<div id="fullMenuView" >
+				<div class="row">
+					<div class="col-md-12" id="myDinner">
+						<h3>My dinner: {{getNumberOfGuests()}} people <a href="#/search" class="btn btn-primary" type="submit" style="float: right;">Go back and edit dinner</a></h3>
+					</div>
+				</div>
+				<div class="row one" id="menuDishes" ng-repeat="dish in menu">
+					<div class="col-md-6 halfPageContainer">
+						<div class="col-md-3 dish-image">
+							<img src="{{dish.ImageURL}}">
+						</div>
+						<div class="col-md-8">
+							<h2 class="noMargin dishHeaderPadding">{{dish.Title}}</h2>
+							<p>
+								{{dish.Description}}
+							</p>
+						</div>
+					</div>
+					<div class="col-md-6 halfPageContainer">
+						<div class="col-md-9">
+							<h5 class="extraMargin dishHeaderPadding">PREPARATION</h5>
+							<p>
+								{{dish.Instructions}}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
