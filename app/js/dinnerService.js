@@ -113,29 +113,7 @@ dinnerPlannerApp.factory('Dinner',function ($resource, $cookieStore) {
   }
 
 
-  //Returns the total price of the menu (all the ingredients multiplied by number of guests).
-  this.getTotalMenuPrice = function() { 
-    //TODO Lab 2
-      var menuPrice = 0;
-      for (var i = 0; i < this.menu.length; i++) {
-          //get the current dish in the menu
-          if ( this.menu[i] != null ) {
-            var currentDish = this.getDishPrice(this.menu[i]);
-            
-            //for each ingredient, add price to menuPrice
-            //var ingredientLength = currentDish.ingredients.length;
-            //for (var j=0; j < ingredientLength; j++) {
-            //   menuPrice = menuPrice + currentDish.ingredients[j].price;
-            // } 
-            menuPrice = menuPrice + currentDish;       
-        }
-        
-      }
-    
-      //multiply ingredient price by number of guests
-      return menuPrice * this.getNumberOfGuests();
-
-  }
+  
 
 
   //Adds the passed dish to the menu. If the dish of that type already exists on the menu
@@ -182,13 +160,11 @@ dinnerPlannerApp.factory('Dinner',function ($resource, $cookieStore) {
   this.Dish = $resource('http://api.bigoven.com/recipe/:id',{api_key:'3stL5NVP4s6ZkmK5gt4dci8a4zOQRpD4'}, {get:{method:"GET", cache:true}}); 
   //this.Dish = $resource('http://api.bigoven.com/recipe/:id',{api_key: 'H9n1zb6es492fj87OxDtZM9s5sb29rW3'});
 
-  this.getDishPrice = function (dishId) {
+  this.getDishPrice = function (dishObject) {
     var dishPrice = 0; 
-    console.log("dish id:",dishId);
-    var dish = this.Dish.get({id:dishId});
-    console.log(dish);
-    var ingredients = dish.Ingredients;
-    console.log(ingredients);
+    //console.log("dish object: (getDishPrice)",dishObject);
+    var ingredients = dishObject.Ingredients;
+    console.log("ingredients: (getDishPrice)",ingredients);
     for (var i = 0; i < 4; i++) {
           ingredient = ingredients[i];
           ingredientQuantity = ingredient.Quantity;
@@ -198,7 +174,31 @@ dinnerPlannerApp.factory('Dinner',function ($resource, $cookieStore) {
     return dishPrice;
     }
 
+    //Returns the total price of the menu (all the ingredients multiplied by number of guests).
+  this.getTotalMenuPrice = function() { 
+    //TODO Lab 2
+      var menuPrice = 0;
+      for (var i = 0; i < this.menu.length; i++) {
+          //get the current dish in the menu
+          if ( this.menu[i] != null ) {
+            var dishObj = this.Dish.get({id:this.menu[i]});
+            console.log("dishOBJ (gettotalmenupice)",dishObj);
+            var dishPrice = this.getDishPrice(dishObj);
+            
+            //for each ingredient, add price to menuPrice
+            //var ingredientLength = currentDish.ingredients.length;
+            //for (var j=0; j < ingredientLength; j++) {
+            //   menuPrice = menuPrice + currentDish.ingredients[j].price;
+            // } 
+            menuPrice = menuPrice + dishPrice;       
+        }
+        
+      }
+    
+      //multiply ingredient price by number of guests
+      return menuPrice * this.getNumberOfGuests();
 
+  }
 
 
   // Angular service needs to return an object that has all the
