@@ -12,22 +12,18 @@ dinnerPlannerApp.controller('OverviewCtrl', function ($scope,$routeParams,Dinner
 
 	$scope.menu = Dinner.getFullMenu();
 
-	$scope.dishPrice = function(dishID) {
-	    console.log("dish id:",dishID);
-		$scope.dish = Dinner.Dish.get({id:dishID});
-		var dishPrice = 0; 
-	    console.log($scope.dish);
-	    $scope.ingredients = $scope.dish.Ingredients;
-	    console.log($scope.ingredients);
-	    for (var i = 0; i < 4; i++) {
-	          ingredient = ingredients[i];
-	          ingredientQuantity = ingredient.Quantity;
-	          var price = 1*ingredientQuantity;
-	          dishPrice = dishPrice + price;
-	        }
-	    return dishPrice;
-	    }
+	$scope.getDishPrice = function(dishObject) {
+		return Dinner.getDishPrice(dishObject);
+	};
 
+	$scope.fullMenuPrice = function() {
+		console.log("In fullMenuPrice!!!999");
+		var menuPrice = 0;
+		for (var j = 0; j < $scope.menu.length; j++) {
+			menuPrice = menuPrice + Dinner.getDishPrice($scope.menu[j]);
+		}
+		return menuPrice * Dinner.getNumberOfGuests();
+	};
 
 
 

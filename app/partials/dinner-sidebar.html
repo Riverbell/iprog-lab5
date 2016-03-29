@@ -22,7 +22,7 @@ this with Total price of the menu -->
 					</tr>
 					<tr ng-repeat="dish in menu">
 						<td>{{dish.Title}}</td>
-						<td class="right-align">{{dish.RecipeID}}</td>
+						<td class="right-align">{{getDishPrice(dish)}}</td>
 					</tr>
 
 					<!--<tr>
@@ -31,7 +31,7 @@ this with Total price of the menu -->
 					</tr>-->
 					<tr class="right-align">
 						<td colspan="2" class="border-top">
-							SEK <span id="totalCost">X</span>
+							SEK <span id="totalCost">{{fullMenuPrice()}}</span>
 						</td>
 					</tr>
 			</table>

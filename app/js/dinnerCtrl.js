@@ -1,7 +1,6 @@
 // Dinner controller that we use whenever we have view that needs to 
 // display or modify the dinner menu
 dinnerPlannerApp.controller('DinnerCtrl', function ($scope,Dinner) {
-	console.log("SKIT");
 	$scope.numberOfGuests = Dinner.getNumberOfGuests();
 
 	$scope.setNumberOfGuest = function(number){
@@ -9,11 +8,11 @@ dinnerPlannerApp.controller('DinnerCtrl', function ($scope,Dinner) {
 	}
 
 	$scope.getNumberOfGuests = function() {
+		console.log("hejhej");
 		return Dinner.getNumberOfGuests();
 	}
 
 	$scope.plusButton = function(){
-		console.log("uyuyuuy");
 		Dinner.setNumberOfGuests(Dinner.getNumberOfGuests() + 1);
 	};
  
@@ -24,27 +23,24 @@ dinnerPlannerApp.controller('DinnerCtrl', function ($scope,Dinner) {
 	
 	$scope.menu = Dinner.getFullMenu();
 
-	$scope.getDishPrice2 = function(id) {
-		console.log("Dish id!!!!!",id);
-		//return Dinner.getDishPrice(id);
+
+	$scope.getDishPrice = function(dishObject) {
+		return Dinner.getDishPrice(dishObject);
 	};
 
-	$scope.testFunc = function (dishId) {
-	    //$scope.dishPrice = 0; 
-	    //console.log("IIIIIDDDDDDDDish id:",dishId);
-	    console.log("YO");
-	    $scope.dish = Dinner.Dish.get({id:dishId});
-	    console.log($scope.dish);
-	    $scope.ingredients = $scope.dish.Ingredients;
-	    console.log($scope.dish.Title);
-	    //for (var i = 0; i < 4; i++) {
-	    //      $scope.ingredient = $scope.ingredients[i];
-	    //      ingredientQuantity = $scope.ingredient.Quantity;
-	    //      $scope.price = 1*ingredientQuantity;
-	    //      $scope.dishPrice = $scope.dishPrice + $scope.price;
-	    //    }
-	    //return $scope.dishPrice;
-    };
+	$scope.test = function() {
+		console.log("TESTAR");
+	}
+
+	$scope.fullMenuPrice = function() {
+		console.log("In fullMenuPrice!!!123");
+		var menuPrice = 0;
+		for (var j = 0; j < $scope.menu.length; j++) {
+			menuPrice = menuPrice + Dinner.getDishPrice($scope.menu[j]);
+			console.log(j);
+		}
+		return menuPrice * Dinner.getNumberOfGuests();
+	};
 	
 
 
